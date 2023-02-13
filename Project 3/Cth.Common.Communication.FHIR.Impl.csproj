@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\MainSolution\GlobalProjectSettings.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Hl7.Fhir.R4" Version="4.1.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Configuration\Contract\Cth.Common.Configuration.Contract.csproj" />
+    <ProjectReference Include="..\..\..\Core\Contract\Cth.Common.Core.Contract.csproj" />
+    <ProjectReference Include="..\..\Contract\Cth.Common.Communication.Contract.csproj" />
+    <ProjectReference Include="..\Contract\Cth.Common.Communication.FHIR.Contract.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>Cth.Common.Communication.FHIR.Test</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1> <!-- To allow Moq mocking internal types -->
+    </AssemblyAttribute>
+  </ItemGroup>
+
+</Project>

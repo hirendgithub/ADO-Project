@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\MainSolution\GlobalProjectSettings.props" />
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.13" />
+    <PackageReference Include="Moq" Version="4.18.4" />
+    <PackageReference Include="NUnit" Version="3.13.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cth.App\CthService\Cth.App.CthService.csproj" />
+    <ProjectReference Include="..\Core\Contract\Cth.Common.Core.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

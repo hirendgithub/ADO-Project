@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\..\..\MainSolution\GlobalProjectSettings.props" />
+
+  <ItemGroup>
+    <PackageReference Include="Hl7.Fhir.R4" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\Contract\Cth.Common.Core.Contract.csproj" />
+  </ItemGroup>
+
+</Project>
