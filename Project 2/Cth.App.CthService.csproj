@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <Import Project="..\..\MainSolution\GlobalProjectSettings.props" />
+
+  <PropertyGroup>
+    <OutputPath>..\..\bin\CthService</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="6.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Cth.Common\Communication\FHIR\Impl\Cth.Common.Communication.FHIR.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Common\Communication\SignalR\Cth.Common.Communication.SignalR.csproj" />
+    <ProjectReference Include="..\..\Cth.Common\Communication\WebApi\Impl\Cth.Common.Communication.WebApi.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Common\Configuration\Impl\Cth.Common.Configuration.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Common\Core\Impl\Cth.Common.Core.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Common\Logging\Cth.Common.Logging.csproj" />
+    <ProjectReference Include="..\..\Cth.Components\DistributionServices\Impl\Cth.Components.DistributionServices.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Components\DocumentExport\Impl\Cth.Components.DocumentExport.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Components\PatientsStorage\Impl\Cth.Components.PatientsStorage.Impl.csproj" />
+    <ProjectReference Include="..\..\Cth.Components\ReportHandling\Impl\Cth.Components.ReportHandling.Impl.csproj" />
+  </ItemGroup>
+
+</Project>
