@@ -1,0 +1,10 @@
+{
+  "name": "document_exporter_api",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "npx sass --style compressed --no-source-map Pages/Shared/"
+  },
+  "dependencies": {
+    "sass": "1.58.0"
+  }
+}
