@@ -8,12 +8,12 @@ REPO_URL="$1"
 BRANCH_NAME="$2"
 
 if [ -z "$REPO_URL" ]; then
-  echo "❌ Error: REPO_URL not provided"
+  echo " Error: REPO_URL not provided"
   exit 1
 fi
 
-echo "✅ Repo URL: $REPO_URL"
-echo "✅ Branch Name: $BRANCH_NAME"
+echo " Repo URL: $REPO_URL"
+echo " Branch Name: $BRANCH_NAME"
 
 timestamp=$(date +"%d_%m_%Y_%H_%M_%S")
 Report_name="demo_project_$timestamp"
@@ -76,7 +76,7 @@ chmod 600 ~/.msmtprc
 if [[ -f "report_output/ado-report.html" ]]; then
   echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
     -a "report_output/ado-report.html" -- hiren.soni46@yahoo.com
-  echo "✅ Report sent successfully."
+  echo " Report sent successfully."
 else
-  echo "⚠️ Report file not found, skipping email."
+  echo " Report file not found, skipping email."
 fi
