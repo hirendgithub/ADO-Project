@@ -73,9 +73,9 @@ EOF
 chmod 600 ~/.msmtprc
 
 # Email the HTML summary
-if [[ -f "report_output/ado-report.summaryHTML" ]]; then
+if [[ -f "report_output/ado-report.html" ]]; then
   echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
-    -a "report_output/ado-report.summaryHTML" -- hiren.soni46@yahoo.com
+    -a "report_output/ado-report.html" -- hiren.soni46@yahoo.com
   echo "✅ Report sent successfully."
 else
   echo "⚠️ Report file not found, skipping email."
