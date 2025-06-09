@@ -45,7 +45,7 @@ echo " Running Checkmarx scan..."
 if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   -s "$REPO_URL" --scan-types "sast, sca" \
   --report-format json --report-format summaryHTML \
-  --output-name "ado-report" --output-path "./report_output" \
+  --output-name "$Report_name" --output-path "./report_output" \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug; then
   echo " cx scan failed"
@@ -56,8 +56,8 @@ fi
 echo " Listing contents of report_output:"
 ls -lh report_output || echo " report_output directory not found"
 
-echo " Searching for ado-report.* files..."
-find report_output -type f -name "ado-report*"
+echo " Searching for $Report_name.* files..."
+find report_output -type f -name "$Report_name.*"
 
 # Install msmtp and mutt for email
 echo " Installing msmtp and mutt..."
