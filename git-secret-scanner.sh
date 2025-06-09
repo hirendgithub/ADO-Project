@@ -35,10 +35,10 @@ fi
 # Configure AST CLI
 cd "$CLI"
  
-./cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
-./cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
-./cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
-./cx configure set --prop-name 'cx_apikey' --prop-value "$CX_APIKEY"  # From GitHub Secrets
+sudo cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
+sudo cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
+sudo cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
+sudo cx configure set --prop-name 'cx_apikey' --prop-value "$CX_APIKEY"  # From GitHub Secrets
  
 # Trigger scan (example)
-sudo ./cx scan create --project-name "$Report_name" --source-location "$GITHUB_WORKSPACE/scanned_project/$(basename "$REPO_URL" .git)" --sast-enabled true
+sudo cx scan create --project-name "$Report_name" --source-location "$GITHUB_WORKSPACE/scanned_project/$(basename "$REPO_URL" .git)" --sast-enabled true
