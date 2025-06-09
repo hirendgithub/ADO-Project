@@ -43,10 +43,12 @@ jobs:
       # Execute your script. The '--repo .' argument tells the script to scan the current directory.
       # If your script has other necessary arguments, add them here.
       # The exit code of the script determines the status of this step (0 for success, non-zero for failure).
-      - name: Run Git Secret Scanner Script
-        run: ./git-secret-scanner.sh --repo . --verbose
+      #- name: Run Git Secret Scanner Script
+        #run: ./git-secret-scanner.sh --repo . --verbose
         # Example with custom patterns/excludes:
         # run: ./git-secret-scanner.sh --repo . --patterns .github/patterns.txt --exclude "node_modules|*.log"
+      - name: Run Scan Script
+        run: bash ./scan.sh "${{ github.repositoryUrl }}" "${{ github.head_ref || github.ref_name }}"
 
       # Optional: Add a step to provide feedback or notifications
       - name: Report Scan Results
