@@ -39,7 +39,6 @@ cx configure set --prop-name 'cx_apikey' --prop-value "eyJhbGciOiJIUzUxMiIsInR5c
 # === Move report to root-level directory ===
 cd ../..
 mkdir -p report_output
-mv scanned_project/$(basename "$REPO_URL" .git)/ado-report* report_output/
 
 # === Install msmtp and send email with attachment ===
 echo "Sending email with report..."
@@ -52,6 +51,8 @@ cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   --output-name "ado-report" --output-path "./report_output" \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug
+
+mv scanned_project/$(basename "$REPO_URL" .git)/ado-report* report_output/
 
 # Create msmtp config
 cat <<EOF > ~/.msmtprc
