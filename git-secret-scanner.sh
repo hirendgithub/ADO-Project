@@ -49,7 +49,7 @@ sudo apt-get update && sudo apt-get install -y msmtp msmtp-mta
 cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   -s "$REPO_URL" --scan-types "sast, sca" \
   --report-format json --report-format summaryHTML \
-  --output-name "ado-report" --output-path "." \
+  --output-name "ado-report" --output-path "./report_output" \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug
 
