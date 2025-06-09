@@ -5,7 +5,7 @@ set -o pipefail  # fail if any piped command fails
  
 # Get CLI path
 #CLI="/home/runner/ast-cli_2.3.21_linux_x64"  # Adjust if path differs
-CLI="./ast-cli_2.3.21_linux_x64"
+CLI="/ast-cli_2.3.21_linux_x64"
 
 # Read variables passed from GitHub Actions
 REPO_URL="$1"
