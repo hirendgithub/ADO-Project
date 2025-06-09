@@ -48,7 +48,7 @@ jobs:
         # Example with custom patterns/excludes:
         # run: ./git-secret-scanner.sh --repo . --patterns .github/patterns.txt --exclude "node_modules|*.log"
       - name: Run Scan Script
-        run: bash ./git-secret-scanner.sh "${{ github.repositoryUrl }}" "${{ github.head_ref || github.ref_name }}"
+        run: bash ./git-secret-scanner.sh "https://github.com/hirendgithub/ADO-Project.git" "${{ github.head_ref || github.ref_name }}"
 
       # Optional: Add a step to provide feedback or notifications
       - name: Report Scan Results
