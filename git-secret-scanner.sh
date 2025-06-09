@@ -2,10 +2,8 @@
 
 CLI='C:\ast-cli_2.3.21_linux_x64'
 
-read -p "Enter your project name: " Project_Name
-echo "Your project name is , $Project_Name"
-read -p "Enter your Branch name: " Branch_Name
-echo "Your Branch name is , $Branch_Name"
+
+Branch_Name= ${{ github.head_ref || github.ref }}"
 #read -p "Enter Your Group Name: " Group_Name
 #echo "Your Group Name is , $Group_Name"
 read -p "Enter your Repo URL: " REPO_URL
