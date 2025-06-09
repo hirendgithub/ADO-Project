@@ -1,0 +1,55 @@
+# .github/workflows/pr-scan.yml
+
+name: PR Code Scan
+
+on:
+  pull_request:
+    # This workflow will run on pull requests targeting these branches.
+    # Adjust if your main development/production branch has a different name.
+    types: [opened, synchronize, reopened]
+
+    branches:
+      - master
+      - main
+      - test
+      # You can also include other branches if needed, e.g., 'develop'
+      # - develop
+    # Optionally, you can specify paths to trigger the workflow only when certain files change
+    # paths:
+    #   - 'src/**' # Only trigger if files in 'src' directory change
+    #   - '!.github/**' # Exclude changes in .github directory
+  workflow_dispatch:
+
+
+jobs:
+  scan_pr_code:
+    # Use the latest Ubuntu Linux runner for the job.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      # This action checks out your repository under $GITHUB_WORKSPACE,
+      # so your workflow can access it.
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Step 2: Make the script executable
+      # Ensure your Linux script has executable permissions.
+      # Replace 'git-secret-scanner.sh' with the actual path to your script.
+      - name: Make Script Executable
+        run: chmod +x git-secret-scanner.sh # Adjust path if script is in a subdirectory (e.g., 'scripts/git-secret-scanner.sh')
+
+      # Step 3: Run your Linux script
+      # Execute your script. The '--repo .' argument tells the script to scan the current directory.
+      # If your script has other necessary arguments, add them here.
+      # The exit code of the script determines the status of this step (0 for success, non-zero for failure).
+      - name: Run Git Secret Scanner Script
+        run: ./git-secret-scanner.sh --repo . --verbose
+        # Example with custom patterns/excludes:
+        # run: ./git-secret-scanner.sh --repo . --patterns .github/patterns.txt --exclude "node_modules|*.log"
+
+      # Optional: Add a step to provide feedback or notifications
+      - name: Report Scan Results
+        run: |
+          echo "Pull Request code scan completed. Check workflow logs for details."
+          # You could integrate with other services here (e.g., Slack notifications)
