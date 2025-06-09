@@ -39,6 +39,5 @@ cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkma
 cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
 cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
 cx configure set --prop-name 'cx_apikey' --prop-value "$CX_APIKEY"  # From GitHub Secrets
- 
-# Trigger scan (example)
-cx scan create --project-name "$Report_name" --source-location "$GITHUB_WORKSPACE/scanned_project/$(basename "$REPO_URL" .git)" --sast-enabled true
+
+cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" -s "$REPO_URL" --scan-types "sast, sca" --report-format json --report-format summaryHTML --output-name "ado-report" --output-path "." --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast --ignore-policy --debug
