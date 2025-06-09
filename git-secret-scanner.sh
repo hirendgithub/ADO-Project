@@ -36,14 +36,6 @@ cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.ch
 cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
 cx configure set --prop-name 'cx_apikey' --prop-value "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0NmM5YThiYy0xYTliLTQyNjItOGRhNi1hM2M0MGE4YWJhMzYifQ.eyJpYXQiOjE3NDg5NTM2MjksImp0aSI6ImE0ZmJmZTZlLTc1NWUtNDRkMC04MWUyLTM1MDMwZDhjYjY1OSIsImlzcyI6Imh0dHBzOi8vZGV1LmlhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2N4LWNzLW5hLXBzcG9jIiwiYXVkIjoiaHR0cHM6Ly9kZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3gtY3MtbmEtcHNwb2MiLCJzdWIiOiJlYTlmMDc0YS1jOGMxLTQ3ODgtYjg0YS01ZDQ1MjZmMWVmYTMiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6ImYwZDBiYzUzLTU2OTgtNDg0Mi1iN2FiLTc5YzY5NjU2ZTBlNCIsInNjb3BlIjoicm9sZXMgcHJvZmlsZSBhc3QtYXBpIGlhbS1hcGkgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.MiALYYrbUCxuBRz_VxlyOepeRSwn_5ZZtCVsXwP70i6XBGjq4ohXKxq_zBLw5ClWVpSHI6LlDBholNP_EjkdVg"
 
-# Run scan
-cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
-  -s "$REPO_URL" --scan-types "sast, sca" \
-  --report-format json --report-format summaryHTML \
-  --output-name "ado-report" --output-path "." \
-  --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
-  --ignore-policy --debug
-
 # === Move report to root-level directory ===
 cd ../..
 mkdir -p report_output
@@ -52,6 +44,14 @@ mv scanned_project/$(basename "$REPO_URL" .git)/ado-report* report_output/
 # === Install msmtp and send email with attachment ===
 echo "Sending email with report..."
 sudo apt-get update && sudo apt-get install -y msmtp msmtp-mta
+
+# Run scan
+cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
+  -s "$REPO_URL" --scan-types "sast, sca" \
+  --report-format json --report-format summaryHTML \
+  --output-name "ado-report" --output-path "." \
+  --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
+  --ignore-policy --debug
 
 # Create msmtp config
 cat <<EOF > ~/.msmtprc
