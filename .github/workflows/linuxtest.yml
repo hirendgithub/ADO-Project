@@ -18,7 +18,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # Step 2: Set up Checkmarx One CLI
+      # Step 2: Install Email Dependencies
+      - name: Install Email Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y msmtp mutt
+
+      # Step 3: Set up Checkmarx One CLI
       - name: Set up Checkmarx One CLI
         run: |
           CX_VERSION="2.3.13"
@@ -27,15 +33,15 @@ jobs:
           chmod +x cx
           sudo mv cx /usr/local/bin/
 
-      # Step 3: Make your scan script executable
+      # Step 4: Make your scan script executable
       - name: Make Script Executable
         run: chmod +x git-secret-scanner.sh
 
-      # Step 4: Run the Scan Script
+      # Step 5: Run the Scan Script
       - name: Run Scan Script
         run: bash ./git-secret-scanner.sh "https://github.com/hirendgithub/ADO-Project.git" "${{ github.head_ref || github.ref_name }}"
 
-      # Step 5: Report the results
+      # Step 6: Report the results
       - name: Report Scan Results
         run: |
           echo "Pull Request code scan completed. Check workflow logs for details."
