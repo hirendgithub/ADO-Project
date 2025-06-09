@@ -1,81 +1,43 @@
 #!/bin/bash
-
-CLI='C:\ast-cli_2.3.21_linux_x64'
-
-
-Branch_Name= ${{ github.head_ref || github.ref }}"
-#read -p "Enter Your Group Name: " Group_Name
-#echo "Your Group Name is , $Group_Name"
-read -p "Enter your Repo URL: " REPO_URL
-echo "Repo URL is , $REPO_URL "
-
+ 
+set -e  # exit on first error
+set -o pipefail  # fail if any piped command fails
+ 
+# Get CLI path
+CLI="/home/runner/ast-cli_2.3.21_linux_x64"  # Adjust if path differs
+ 
+# Read variables passed from GitHub Actions
+REPO_URL="$1"
+BRANCH_NAME="$2"
+ 
+if [ -z "$REPO_URL" ]; then
+  echo "❌ Error: REPO_URL not provided"
+  exit 1
+fi
+ 
+echo "✅ Repo URL: $REPO_URL"
+echo "✅ Branch Name: $BRANCH_NAME"
+ 
 timestamp=$(date +"%d_%m_%Y_%H_%M_%S")
-
-# Create report name
 Report_name="demo_project_$timestamp"
-
-Project_Path="C:/Hiren/Project"
-
-cd $Project_Path
-
-echo "---789this is testing phase"
-
+ 
+# Clone repo
+mkdir -p scanned_project
+cd scanned_project
 git clone "$REPO_URL"
-
-echo "---789this is testing phase"
-
-
-#git checkout $Branch_Name
-
-echo "This is debugging 2"
-
-cd $CLI
-
-echo "This is debugging 3"
-
+cd "$(basename "$REPO_URL" .git)"
+ 
+if [ -n "$BRANCH_NAME" ]; then
+  git checkout "$BRANCH_NAME"
+fi
+ 
+# Configure AST CLI
+cd "$CLI"
+ 
 cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
-
 cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
-
 cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
-
-cx configure set --prop-name 'cx_apikey' --prop-value 'eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI0NmM5YThiYy0xYTliLTQyNjItOGRhNi1hM2M0MGE4YWJhMzYifQ.eyJpYXQiOjE3NDg5NTM2MjksImp0aSI6ImE0ZmJmZTZlLTc1NWUtNDRkMC04MWUyLTM1MDMwZDhjYjY1OSIsImlzcyI6Imh0dHBzOi8vZGV1LmlhbS5jaGVja21hcngubmV0L2F1dGgvcmVhbG1zL2N4LWNzLW5hLXBzcG9jIiwiYXVkIjoiaHR0cHM6Ly9kZXUuaWFtLmNoZWNrbWFyeC5uZXQvYXV0aC9yZWFsbXMvY3gtY3MtbmEtcHNwb2MiLCJzdWIiOiJlYTlmMDc0YS1jOGMxLTQ3ODgtYjg0YS01ZDQ1MjZmMWVmYTMiLCJ0eXAiOiJPZmZsaW5lIiwiYXpwIjoiYXN0LWFwcCIsInNpZCI6ImYwZDBiYzUzLTU2OTgtNDg0Mi1iN2FiLTc5YzY5NjU2ZTBlNCIsInNjb3BlIjoicm9sZXMgcHJvZmlsZSBhc3QtYXBpIGlhbS1hcGkgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.MiALYYrbUCxuBRz_VxlyOepeRSwn_5ZZtCVsXwP70i6XBGjq4ohXKxq_zBLw5ClWVpSHI6LlDBholNP_EjkdVg'
-
-echo "This is debugging 4"
-
-cx scan create --project-name "$Project_Name" --branch "$Branch_Name" -s "$Project_Path" --scan-types "sast" --report-format json --report-format summaryHTML --output-name "$Report_name" --output-path "." --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast --ignore-policy --debug
-
-# echo "Captured Scan ID: $SCAN_ID"
-
-echo "This is debugging 5"
-
-
-
-ATTACHMENT_PATH="$CLI/$Report_name.html"
-
-
-powershell -Command "
-\$smtpServer = 'smtp.gmail.com'
-\$smtpPort = 587
-\$from = 'hirendhakan8080@gmail.com'
-\$to = 'hiren.soni46@yahoo.com'
-\$subject = 'Project Scan Summary'
-\$body = 'This email includes an attachment of project summary.'
-\$username = 'hirendhakan8080@gmail.com'
-\$password = ConvertTo-SecureString 'ndmr jelr rioq oiuk' -AsPlainText -Force
-\$cred = New-Object System.Management.Automation.PSCredential(\$username, \$password)
-Send-MailMessage -From \$from -To \$to -Subject \$subject -Body \$body -SmtpServer \$smtpServer -Port \$smtpPort -UseSsl -Credential \$cred -Attachments '${ATTACHMENT_PATH}'
-"
-echo $ATTACHMENT_PATH
-echo "Script has finished successfully"
-
-#./cx scan create --project-name "$PROJECT_NAME" --branch "$BRANCH_NAME" -s "$REPO_URL"
-## Output of above pring " Scan created successfully. Scan ID: 12345678"  We need to parse can id and pass in below command store in s
-
-##  sleep 10 
-# wait for 10 sec
-
-## ./cx results show --scan-id $SCAN_ID= --report-format=json --output-name report.json
-#--project-groups $Group_Name
-
-#echo "$body" | mailx -s "$subject" -a "$attachment" "$to"
+cx configure set --prop-name 'cx_apikey' --prop-value "$CX_APIKEY"  # From GitHub Secrets
+ 
+# Trigger scan (example)
+cx scan create --project-name "$Report_name" --source-location "$GITHUB_WORKSPACE/scanned_project/$(basename "$REPO_URL" .git)" --sast-enabled true
