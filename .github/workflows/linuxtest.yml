@@ -50,6 +50,9 @@ jobs:
           SENDER_EMAIL_PASSWORD: ${{secrets.SENDER_EMAIL_PASSWORD}}
           ACCOUNT_DEFAULT: ${{secrets.ACCOUNT_DEFAULT}}
           RECIPIENT_EMAIL: ${{secrets.RECIPIENT_EMAIL}}
+          CX_BASE_URL: ${{secrets.CX_BASE_URL}}
+          CX_BASE_AUTH_URL: ${{secrets.CX_BASE_AUTH_URL}}
+          CX_TENANT_NAME: ${{secrets.CX_TENANT_NAME}}
           CX_API_KEY: ${{secrets.CX_ONE_API_KEY}}
 
       # Step 6: Report the results
