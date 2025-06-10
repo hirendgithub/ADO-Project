@@ -32,7 +32,7 @@ fi
 cd ../..
 
 # Create output dir
-mkdir -p report_output
+sudo mkdir -m 755 report_output
 
 # Configure AST CLI
 cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
@@ -45,7 +45,7 @@ echo " Running Checkmarx scan..."
 if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   -s "$REPO_URL" --scan-types "sast, sca" \
   --report-format json --report-format summaryHTML \
-  --output-name "$Report_name" --output-path . \
+  --output-name "$Report_name" --output-path "./report_output" \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug; then
   echo " cx scan failed"
