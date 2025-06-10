@@ -86,7 +86,7 @@ chmod 777 ~/.msmtprc
 
 # === Smart Report Detection and Email ===
 echo " Looking for any summaryHTML report file in report_output/"
-REPORT_FILE=$(find report_output -type f -name "html" | head -n 1)
+REPORT_FILE=$(find report_output -type f -name "*.html" | head -n 1)
 
 
 if [[ -f "$REPORT_FILE" ]]; then
