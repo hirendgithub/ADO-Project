@@ -31,7 +31,6 @@ jobs:
           RECIPIENT_EMAIL: ${{secrets.RECIPIENT_EMAIL}}
 
         run: |
-          sudo apt-get update
           sudo apt-get install -y msmtp mutt
 
       # Step 3: Set up Checkmarx One CLI
