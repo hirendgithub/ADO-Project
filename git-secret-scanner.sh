@@ -47,7 +47,6 @@ if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   -s "$REPO_URL" --scan-types "sast, sca" \
   --report-format json --report-format summaryHTML \
   --output-name "$Report_name" --output-path "report_output" \
-  --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug; then
   echo " cx scan failed"
   exit 1
@@ -83,20 +82,20 @@ password ndmr jelr rioq oiuk
 account default : gmail
 EOF
 
-chmod 600 ~/.msmtprc
+chmod 777 ~/.msmtprc
 
 # === Smart Report Detection and Email ===
 echo " Looking for any summaryHTML report file in report_output/"
 REPORT_FILE=$(find report_output -type f -name "html" | head -n 1)
 
 
-#if [[ -f "$REPORT_FILE" ]]; then
- # echo " Sending report via email: $REPORT_FILE"
-  #echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
-   # -a "$REPORT_FILE" -- hiren.soni46@yahoo.com
-  #echo " Report sent successfully."
-#else
-  #echo
-  #echo " Report file not found at expected location: report_output/html"
-  #echo "Skipping email."
-#fi
+if [[ -f "$REPORT_FILE" ]]; then
+ echo " Sending report via email: $REPORT_FILE"
+  echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
+   -a "$REPORT_FILE" -- hiren.soni46@yahoo.com
+  echo " Report sent successfully."
+else
+  echo
+  echo " Report file not found at expected location: report_output/html"
+  echo "Skipping email."
+fi
