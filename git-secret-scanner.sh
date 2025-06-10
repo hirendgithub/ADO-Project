@@ -82,7 +82,7 @@ password ndmr jelr rioq oiuk
 account default : gmail
 EOF
 
-chmod 777 ~/.msmtprc
+chmod 600 ~/.msmtprc
 
 # === Smart Report Detection and Email ===
 echo " Looking for any summaryHTML report file in report_output/"
