@@ -45,7 +45,7 @@ cx configure set --prop-name 'cx_apikey' --prop-value 'eyJhbGciOiJIUzUxMiIsInR5c
 # Run scan (outputs directly to ./report_output)
 echo " Running Checkmarx scan..."
 if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
-  -s "$REPO_URL" --scan-types "sast" --sast-incremental "true" \
+  -s "$REPO_URL" --scan-types "sast" --sast-incremental \
   --report-format json --report-format summaryHTML \
   --output-name "$Report_name" --output-path "report_output" \
   --ignore-policy --debug; then
