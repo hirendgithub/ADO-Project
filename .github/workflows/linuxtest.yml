@@ -37,7 +37,7 @@ jobs:
       # Step 3: Set up Checkmarx One CLI
       - name: Set up Checkmarx One CLI
         env:
-          CX_API_KEY: ${{secrets.Cx_One_API_Key}}
+          CX_API_KEY: ${{secrets.CX_ONE_API_KEY}}
         run: |
           CX_VERSION="2.3.21"
           wget "https://github.com/Checkmarx/ast-cli/releases/download/${CX_VERSION}/ast-cli_${CX_VERSION}_linux_x64.tar.gz"
