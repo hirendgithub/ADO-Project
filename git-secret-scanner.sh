@@ -15,6 +15,9 @@ SENDER_EMAIL_PASSWORD="$SENDER_EMAIL_PASSWORD"
 ACCOUNT_DEFAULT="$ACCOUNT_DEFAULT"
 RECIPIENT_EMAIL="$RECIPIENT_EMAIL"
 CX_API_KEY="$CX_API_KEY"
+CX_BASE_URL="$CX_BASE_URL"
+CX_BASE_AUTH_URL="$CX_BASE_AUTH_URL"
+CX_TENANT_NAME="$CX_TENANT_NAME"
  
 if [ -z "$REPO_URL" ]; then
   echo " Error: REPO_URL not provided"
@@ -46,9 +49,9 @@ sudo mkdir -m 755 report_output
 sudo chmod -R 777 report_output
 
 # Configure AST CLI
-cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
-cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
-cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
+cx configure set --prop-name 'cx_base_uri' --prop-value '$CX_BASE_URL'
+cx configure set --prop-name 'cx_base_auth_uri' --prop-value '$CX_BASE_AUTH_URL'
+cx configure set --prop-name 'cx_tenant' --prop-value '$CX_TENANT_NAME'
 cx configure set --prop-name 'cx_apikey' --prop-value '$CX_API_KEY'
 
 # Run scan (outputs directly to ./report_output)
