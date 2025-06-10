@@ -39,7 +39,7 @@ sudo chmod -R 777 report_output
 cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
 cx configure set --prop-name 'cx_base_auth_uri' --prop-value 'https://deu.iam.checkmarx.net/'
 cx configure set --prop-name 'cx_tenant' --prop-value 'cx-cs-na-pspoc'
-cx configure set --prop-name 'cx_apikey' --prop-value '$CX_API_KEY'
+cx configure set --prop-name 'cx_apikey' --prop-value "$CX_API_KEY"
 
 # Run scan (outputs directly to ./report_output)
 echo " Running Checkmarx scan..."
