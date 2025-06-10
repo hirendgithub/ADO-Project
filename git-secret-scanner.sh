@@ -33,6 +33,7 @@ cd ../..
 
 # Create output dir
 sudo mkdir -m 755 report_output
+sudo chmod -R 777 report_output
 
 # Configure AST CLI
 cx configure set --prop-name 'cx_base_uri' --prop-value 'https://deu.ast.checkmarx.net/'
@@ -43,9 +44,9 @@ cx configure set --prop-name 'cx_apikey' --prop-value "eyJhbGciOiJIUzUxMiIsInR5c
 # Run scan (outputs directly to ./report_output)
 echo " Running Checkmarx scan..."
 if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
-  -s "$REPO_URL" --scan-types "sast, sca" \
+  -s "$REPO_URL" --scan-types "sast, sca, IAC" \
   --report-format json --report-format summaryHTML \
-  --output-name "$Report_name" --output-path "./report_output" \
+  --output-name "$Report_name" --output-path "report_output" \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug; then
   echo " cx scan failed"
@@ -64,7 +65,7 @@ echo " Installing msmtp and mutt..."
 sudo apt-get update && sudo apt-get install -y msmtp msmtp-mta mutt
 
 # Setup SMTP config
-echo "✉️ Configuring email settings..."
+echo " Configuring email settings..."
 cat <<EOF > ~/.msmtprc
 defaults
 auth on
