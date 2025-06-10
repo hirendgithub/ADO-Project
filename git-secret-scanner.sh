@@ -45,7 +45,7 @@ echo " Running Checkmarx scan..."
 if ! cx scan create --project-name "ado-project" --branch "$BRANCH_NAME" \
   -s "$REPO_URL" --scan-types "sast, sca" \
   --report-format json --report-format summaryHTML \
-  --output-name "$Report_name" --output-path "./report_output" \
+  --output-name "$Report_name" --output-path . \
   --report-pdf-email hiren.soni46@yahoo.com --report-pdf-options sast \
   --ignore-policy --debug; then
   echo " cx scan failed"
