@@ -26,8 +26,8 @@ jobs:
           PORT: ${{secrets.PORT}}
           SENDER_EMAIL: $ {{secrets.SENDER_EMAIL}}
           SENDER_EMAIL_USERNAME: ${{secrets.SENDER_EMAIL_USERNAME}}
-          SENDER_EMAIL_PASSWORD: ${{SENDER_EMAIL_PASSWORD}}
-          ACCOUNT_DEFAULT: ${{ACCOUNT_DEFAULT}}
+          SENDER_EMAIL_PASSWORD: ${{secrets.SENDER_EMAIL_PASSWORD}}
+          ACCOUNT_DEFAULT: ${{secrets.ACCOUNT_DEFAULT}}
           RECIPIENT_EMAIL: ${{secrets.RECIPIENT_EMAIL}}
 
         run: |
