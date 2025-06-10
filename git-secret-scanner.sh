@@ -86,14 +86,16 @@ chmod 600 ~/.msmtprc
 
 # === Smart Report Detection and Email ===
 echo " Looking for any summaryHTML report file in report_output/"
-REPORT_FILE=$(find report_output -type f -name "*summaryHTML" | head -n 1)
+REPORT_FILE=$(find report_output -type f -name "html" | head -n 1)
 
-if [[ -f "$REPORT_FILE" ]]; then
-  echo " Sending report via email: $REPORT_FILE"
-  echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
-    -a "$REPORT_FILE" -- hiren.soni46@yahoo.com
-  echo " Report sent successfully."
-else
-  echo " Report file not found at expected location: report_output/*summaryHTML"
-  echo "Skipping email."
-fi
+
+#if [[ -f "$REPORT_FILE" ]]; then
+ # echo " Sending report via email: $REPORT_FILE"
+  #echo "This email includes an attachment of project summary." | mutt -s "Project Scan Summary" \
+   # -a "$REPORT_FILE" -- hiren.soni46@yahoo.com
+  #echo " Report sent successfully."
+#else
+  #echo
+  #echo " Report file not found at expected location: report_output/html"
+  #echo "Skipping email."
+#fi
