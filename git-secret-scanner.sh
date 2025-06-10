@@ -11,6 +11,7 @@ if [ -z "$REPO_URL" ]; then
   echo " Error: REPO_URL not provided"
   exit 1
 fi
+echo -e "account: $ACCOUNT\nhost: $HOST\nport: $PORT\nfrom: $SENDER_EMAIL\nuser: $SENDER_EMAIL_USERNAME\npassword: $SENDER_EMAIL_PASSWORD"
 
 echo " Repo URL: $REPO_URL"
 echo " Branch Name: $BRANCH_NAME"
